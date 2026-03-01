@@ -15,40 +15,56 @@ public class MathCalculatorLab {
         }
     }
 
-    // TODO 1: Implement this method
-    // Creates a Runnable that calculates the nth Fibonacci number
-    // Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34...
-    // Formula: fib(n) = fib(n-1) + fib(n-2)
-    // Base cases: fib(0) = 0, fib(1) = 1
-    //
-    // The Runnable should:
-    // 1. Print: "Thread-X computing: fib(n)"
-    // 2. Calculate Fibonacci iteratively using two variables (prev, curr)
-    // 3. Include Thread.sleep(5) in the loop to simulate work
-    // 4. Store result in calc.result
-    // 5. Print: "Thread-X completed: fibonacci(n) = result"
-    //
-    // Example: fibonacci(8) = 21
     public static Runnable fibonacciCalculator(CalculatorBase calc) {
-        // TODO: Return a Runnable (use lambda or anonymous class)
-        return null; // Replace this
+        Runnable task = () -> {System.out.println(Thread.currentThread().getName() + " computing: fib(" + calc.n + ")");
+        int prev = 0;
+        int curr = 1;
+        if (calc.n <= 1)
+        {
+          calc.result = calc.n;
+          try {
+          Thread.sleep(5);
+          }
+          catch (InterruptedException e) {}
+        }
+        for (int i = 1; i < calc.n; i++)
+        {
+          calc.result = prev + curr;
+          prev = curr;
+          curr = (int) calc.result;
+          try {
+          Thread.sleep(5);
+          }
+          catch (InterruptedException e) {}
+        }
+        System.out.println(Thread.currentThread().getName() + " completed: fib(" + calc.n + ") = " + calc.result);
+        };
+        return task;
     }
 
-    // TODO 2: Implement this method
-    // Creates a Runnable that calculates sum of squares from 1 to n
-    // Formula: 1² + 2² + 3² + ... + n²
-    //
-    // The Runnable should:
-    // 1. Print: "Thread-X computing: 1² + 2² + 3² + ... + n²"
-    // 2. Loop from 1 to n, adding i*i to result
-    // 3. Include Thread.sleep(5) in the loop to simulate work
-    // 4. Store result in calc.result
-    // 5. Print: "Thread-X completed: sumOfSquares(n) = result"
-    //
-    // Example: sumOfSquares(5) = 1 + 4 + 9 + 16 + 25 = 55
     public static Runnable sumOfSquaresCalculator(CalculatorBase calc) {
-        // TODO: Return a Runnable (use lambda or anonymous class)
-        return null; // Replace this
+        Runnable task =  () -> { System.out.print(Thread.currentThread().getName() + " computing: ");
+          if (calc.n == 1)
+            System.out.println("1^2");
+          else if (calc.n == 2)
+            System.out.println("1^2 + 2^2");
+          else if (calc.n == 3)
+            System.out.println("1^2 + 2^2 + 3^3");
+          else
+            System.out.println("1^2 + 2^2 + 3^3 + ... + " + calc.n + "^" + calc.n);
+            
+        for (int i = 1; i <= calc.n; i++)
+        {
+          calc.result += i*i;
+          try {
+          Thread.sleep(5);
+          }
+          catch (InterruptedException e) {}
+        }
+        System.out.println();
+        System.out.println(Thread.currentThread().getName() + " completed: sumOfSquares(" + calc.n + ") = " + calc.result);
+        };
+        return task;
     }
 
     // Main method (PROVIDED - DO NOT MODIFY)
